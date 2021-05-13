@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
 void main()
@@ -7,11 +8,11 @@ void main()
 
 	printf("\n문자열을 입력하세요 : ");
 	gets(s1);
-	/*for (i = 0; i < strlen(s1); i++)
+	for (i = 0; i < strlen(s1); i++)
 	{
 		printf("%c", s1[i]);
-	}*/
-	puts(s1);
+	}
+	//puts(s1);
 	printf("\n");
 	printf("입력된 문자열 길이는 : %d", strlen(s1));
 
