@@ -154,7 +154,7 @@ void DeleteNode(HeadNode* header, Node* node)
 	}
 	else
 	{
-		if (header->head = node)
+		if (header->head == node)
 		{
 			header->head = node->next;
 			free(node);
