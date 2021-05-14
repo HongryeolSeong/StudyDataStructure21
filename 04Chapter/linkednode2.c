@@ -29,11 +29,12 @@ int main()
 		curr = curr->link;
 	}
 
-	curr = head;
-	while (curr != NULL)
+	Node* temp;
+	for (curr; curr != NULL; curr->link)
 	{
+		temp = curr->link;
 		free(curr);
-		curr = curr->link;
+		curr = temp;
 	}
 
 	return 0;
