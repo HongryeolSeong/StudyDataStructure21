@@ -39,7 +39,9 @@ int main()
 
 	PrintNode(h);
 	printf("\n");
-	sn = SearchNode(h, 40);
+	sn = SearchNode(h, 30);
+	printf("\n");
+	AllDeleteNode(h);
 	/*printf("\n");
 	printf("해당 노드 : %u, %d\n", &sn, sn->data);*/
 	printf("\n");
@@ -103,13 +105,13 @@ void PrintNode(HeadNode* header)
 	Node* curr = header->head; // curr은 첫번째 노드로 시작
 	if (curr == NULL)
 	{
-		printf("현재 헤드만 존재합니다.\n");
+		printf("출력 결과 : 현재 헤드만 존재합니다.\n");
 	}
 	else
 	{
 		while (curr != NULL)
 		{
-			printf("%d번째 노드의 값은 : %d\n", n++, curr->data);
+			printf("출력 결과 : %d번째 노드의 값은 : %d\n", n++, curr->data);
 			curr = curr->next; // 마지막노드를 찾을때 까지 순회
 		}
 	}
@@ -117,13 +119,17 @@ void PrintNode(HeadNode* header)
 
 void AllDeleteNode(HeadNode* header)
 {
+	if (header->head == NULL)
+	{
+		printf("삭제 실패 : 현재 헤드만 존재합니다.\n");
+	}
 	int n = 1;
 	Node* temp;
 	Node* curr = header->head;
 	while (curr != NULL)
 	{
 		temp = curr->next; // 다음 노드를 지우기 위해 해당 노드의 next를 temp에 저장
-		printf("%d번째 노드를 삭제합니다.\n", n++);
+		printf("삭제 실행 : %d번째 노드를 삭제합니다.\n", n++);
 		free(curr);
 		curr = temp;
 	}
@@ -140,8 +146,8 @@ Node* SearchNode(HeadNode* header, int data)
 		curr = curr->next;
 		n++;
 	}
-	if (curr == NULL) printf("해당하는 data가 담긴 노드는 없습니다.\n");
-	else printf("%d번째 노드입니다.\n", n);
+	if (curr == NULL) printf("검색 실패 : 해당하는 data가 담긴 노드는 없습니다.\n");
+	else printf("검색 결과 : %d번째 노드입니다.\n", n);
 	
 	return curr;
 }
@@ -150,11 +156,15 @@ void DeleteNode(HeadNode* header, Node* node)
 {
 	if (node == NULL)
 	{
-		printf("삭제할 노드가 없습니다.\n");
+		printf("삭제 실패 : 삭제할 노드가 없습니다.\n");
+	}
+	else if (header->head == NULL)
+	{
+		printf("삭제 실패 : 현재 헤드만 존재합니다.\n");
 	}
 	else
 	{
-		if (header->head == node)
+		if (header->head == node) // 헤더 바로 다음 노드만 존재하는 경우
 		{
 			header->head = node->next;
 			free(node);
