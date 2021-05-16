@@ -129,7 +129,7 @@ void AllDeleteNode(HeadNode* header)
 	{
 		temp = curr->next; // 다음 노드를 지우기 위해 해당 노드의 next를 temp에 저장
 		printf("삭제 실행 : %d번째 노드를 삭제합니다.\n", n++);
-		free(curr);
+		free(curr); // curr 내 동적 할당된 노드 삭제(curr은 그대로 유지)
 		curr = temp;
 	}
 	header->head = NULL;
