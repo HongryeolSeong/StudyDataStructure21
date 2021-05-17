@@ -51,7 +51,7 @@ ListNode* CreateNode(HeadNode* h, int data)
 	ListNode* newNode = (ListNode*)malloc(sizeof(ListNode));
 	if (newNode == NULL)
 	{
-		printf("메모리 할당 실패");
+		printf("메모리 할당 실패!");
 		return;
 	}
 	else
