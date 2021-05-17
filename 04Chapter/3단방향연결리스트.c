@@ -18,6 +18,7 @@ void PrintNode(HeadNode* header);
 void AllDeleteNode(HeadNode* header);
 Node* SearchNode(HeadNode* header, int data);
 void DeleteNode(HeadNode* header, Node* node);
+void MidInsertNode(HeadNode* header, Node* pn, int data);
 
 int main()
 {
@@ -38,14 +39,13 @@ int main()
 	n5 = PreInsertNode(h, 50);
 
 	PrintNode(h);
-	printf("\n");
-	sn = SearchNode(h, 20);
-	/*printf("\n");
-	AllDeleteNode(h);*/
-	/*printf("\n");
-	printf("해당 노드 : %u, %d\n", &sn, sn->data);*/
-	DeleteNode(h, sn);
-	printf("\n");
+	//sn = SearchNode(h, 30);
+	//AllDeleteNode(h);
+	//printf("해당 노드 : %u, %d\n", &sn, sn->data);*/
+	DeleteNode(h, n3);
+	//PrintNode(h);
+	//MidInsertNode(h, n1, 7);
+	//sn = SearchNode(h, 7);
 	PrintNode(h);
 
 	return 0;
@@ -105,6 +105,7 @@ void PrintNode(HeadNode* header)
 	if (curr == NULL)
 	{
 		printf("출력 결과 : 현재 헤드만 존재합니다.\n");
+		printf("\n");
 	}
 	else
 	{
@@ -113,6 +114,7 @@ void PrintNode(HeadNode* header)
 			printf("출력 결과 : %d번째 노드의 값은 : %d\n", n++, curr->data);
 			curr = curr->next; // 마지막노드를 찾을때 까지 순회
 		}
+		printf("\n");
 	}
 }
 
@@ -121,6 +123,7 @@ void AllDeleteNode(HeadNode* header)
 	if (header->head == NULL)
 	{
 		printf("삭제 실패 : 현재 헤드만 존재합니다.\n");
+		printf("\n");
 	}
 	int n = 1;
 	Node* temp;
@@ -133,11 +136,12 @@ void AllDeleteNode(HeadNode* header)
 		curr = temp;
 	}
 	header->head = NULL;
+	printf("\n");
 }
 
 Node* SearchNode(HeadNode* header, int data)
 {
-	int n = 1;
+	int n = 2;
 	Node* curr = header->head;
 	while (curr != NULL)
 	{
@@ -146,25 +150,31 @@ Node* SearchNode(HeadNode* header, int data)
 		n++;
 	}
 	if (curr == NULL) printf("검색 실패 : 해당하는 data가 담긴 노드는 없습니다.\n");
-	else printf("검색 결과 : %d번째 노드입니다.\n", n);
-
+	else printf("검색 결과 : %d을(를) 가진 노드는 %d번째 노드입니다.\n", data, n);
+	printf("\n");
 	return curr;
 }
 
 void DeleteNode(HeadNode* header, Node* node)
 {
+	int n = 2;
+
 	if (node == NULL)
 	{
 		printf("삭제 실패 : 삭제할 노드가 없습니다.\n");
+		printf("\n");
 	}
 	else if (header->head == NULL)
 	{
 		printf("삭제 실패 : 현재 헤드만 존재합니다.\n");
+		printf("\n");
 	}
 	else
 	{
 		if (header->head == node) // 헤더 바로 다음 노드만 존재하는 경우
 		{
+			printf("삭제 실행 : 1번째 노드를 삭제합니다.\n");
+			printf("\n");
 			header->head = node->next;
 			free(node);
 		}
@@ -175,9 +185,55 @@ void DeleteNode(HeadNode* header, Node* node)
 			{
 				if (curr->next == node) break;
 				curr = curr->next;
+				n++;
 			}
+			printf("삭제 실행 : %d번째 노드를 삭제합니다.\n", n);
+			printf("\n");
 			curr->next = node->next;
 			free(node);
+		}
+	}
+}
+
+void MidInsertNode(HeadNode* header, Node* pn, int data)
+{
+	int n = 1;
+
+	// 삽입할 노드 위치의 전노드 찾기
+	Node* curr = header->head; // curr은 n1부터 시작
+	while (curr != NULL)
+	{
+		if (curr == pn) break; // 입력 변수인 pn를 찾을시 curr은 스탑 curr = pn
+		curr = curr->next;
+		n++;
+	}
+	// curr = 삽입할 노드 위치 바로 전 노드
+
+	// curr 다음에 새 노드 삽입하기
+	Node* newnode = (Node*)malloc(sizeof(Node)); // 새노드 생성
+	if (newnode != NULL)
+	{
+		if (curr == header)
+		{
+			newnode->data = data;
+			newnode->next = NULL;
+			header->head = newnode;
+			printf("헤더 바로 다음에 노드를 삽입하였습니다.");
+			printf("\n");
+		}
+		else if (pn == NULL)
+		{
+			printf("삽입할 위치를 찾을 수 없습니다.");
+			printf("\n");
+		}
+		else 
+		{
+			newnode->data = data;
+			// 새노드 next에 그 전노드의 next를 넣어 새노드와 새노드의 다음 노드와 연결
+			newnode->next = curr->next;
+			curr->next = newnode; // 전노드와 새노드 연결
+			printf("%d번째 노드와 %d번째 노드 사이에 새 노드 삽입 완료\n", n, n + 1);
+			printf("\n");
 		}
 	}
 }
