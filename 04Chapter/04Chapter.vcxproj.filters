@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="7_2큐연결구조.c">
+    <ClCompile Include="12퀵정렬.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
