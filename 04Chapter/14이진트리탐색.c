@@ -59,7 +59,7 @@ treeNode* insertNode(treeNode* p, char x)
 	}
 	else if (x < p->key) p->left = insertNode(p->left, x);
 	else if (x > p->key) p->right = insertNode(p->right, x);
-	else printf("\n 이미 같은 키가 있습니다! \n"); 
+	else printf("\n 이미 같은 키가 있습니다!! \n"); 
 
 	return p;
 }
