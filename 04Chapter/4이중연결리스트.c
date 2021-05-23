@@ -1,10 +1,11 @@
 #include <stdio.h>
+// 이중(양방향) 연결리스트 : 단방향과 달리 노드가 서로를 가리킴
 
 typedef struct dlistnode
 {
 	int data;
-	struct dlistnode* next;
-	struct dlistnode* prev;
+	struct dlistnode* next; // 다음 노드를 가리킴
+	struct dlistnode* prev; // 이전 노드를 가리킴
 } DListNode;
 
 typedef struct
@@ -12,13 +13,13 @@ typedef struct
 	DListNode* head;
 } HeadNode;
 
-HeadNode* CreateHead();
-DListNode* CreateNode(int data);
-void InsertNode(HeadNode* phead, DListNode* preNode, DListNode* newNode);
-void PrintNode(HeadNode* header);
-void AllDelNode(HeadNode* phead);
-DListNode* FindNode(HeadNode* phead, int data);
-void DelNode(HeadNode* phead, DListNode* node);
+HeadNode* CreateHead(); // 헤더 생성
+DListNode* CreateNode(int data); // 노드 생성
+void InsertNode(HeadNode* phead, DListNode* preNode, DListNode* newNode); // 노드 삽입
+void PrintNode(HeadNode* header); // 전체 출력
+void AllDelNode(HeadNode* phead); // 전체 삭제
+DListNode* FindNode(HeadNode* phead, int data); // 노드 검색
+void DelNode(HeadNode* phead, DListNode* node); // 한 노드 삭제
 
 int main()
 {
@@ -39,12 +40,13 @@ int main()
 	PrintNode(h);
 	sn = FindNode(h, 30);
 	//AllDelNode(h);
-	DelNode(h, sn);
+	DelNode(h, n3);
 	PrintNode(h);
 
 	return 0;
 }
 
+// 헤더 생성
 HeadNode* CreateHead()
 {
 	HeadNode* h = (HeadNode*)malloc(sizeof(HeadNode));
@@ -52,6 +54,7 @@ HeadNode* CreateHead()
 	return h;
 }
 
+// 노드 생성
 DListNode* CreateNode(int data)
 {
 	DListNode* newNode = (DListNode*)malloc(sizeof(DListNode));
@@ -62,6 +65,7 @@ DListNode* CreateNode(int data)
 	}
 	else
 	{
+		// 생성시 데이터값만 가지게 됨
 		newNode->data = data;
 		newNode->next = NULL;
 		newNode->prev = NULL;
@@ -69,15 +73,19 @@ DListNode* CreateNode(int data)
 	}
 }
 
+// 노드를 삽입
 void InsertNode(HeadNode* phead, DListNode* preNode, DListNode* newNode)
 {
-	if (preNode == NULL) // 헤드 바로 다음에 넣을 경우
+	// 헤드 바로 다음에 넣을 경우
+	if (preNode == NULL)
 	{
-		if (phead->head == NULL) // 공백리스트인 경우
+		// 공백리스트인 경우
+		if (phead->head == NULL)
 		{
 			phead->head = newNode;
 		}
-		else if (phead->head != NULL) // 공백리스트가 아닌 경우
+		// 공백리스트가 아닌 경우
+		else if (phead->head != NULL)
 		{
 			newNode->next = phead->head;
 			newNode->next->prev = newNode;
@@ -98,14 +106,18 @@ void InsertNode(HeadNode* phead, DListNode* preNode, DListNode* newNode)
 	}
 }
 
+// 전체 출력
 void PrintNode(HeadNode* phead)
 {
 	int n = 1;
+
+	// 공백리스트인 경우
 	if (phead->head == NULL)
 	{
 		printf("출력 결과 : 현재 헤드만 존재합니다.\n");
 		printf("\n");
 	}
+	// 출력할 노드가 있는 경우
 	else
 	{
 		DListNode* curr = phead->head; // curr은 첫번째 노드로 시작
@@ -118,13 +130,17 @@ void PrintNode(HeadNode* phead)
 	}
 }
 
+// 전체 삭제
 void AllDelNode(HeadNode* phead)
 {
+	// 공백리스트인 경우
 	if (phead->head == NULL)
 	{
 		printf("삭제 실패 : 현재 헤드만 존재합니다.\n");
 		printf("\n");
 	}
+
+	// 삭제할 노드가 있는 경우
 	int n = 1;
 	DListNode* temp;
 	DListNode* curr = phead->head;
@@ -139,6 +155,7 @@ void AllDelNode(HeadNode* phead)
 	printf("\n");
 }
 
+// 노드 검색
 DListNode* FindNode(HeadNode* phead, int data)
 {
 	int n = 1;
@@ -155,15 +172,18 @@ DListNode* FindNode(HeadNode* phead, int data)
 	return curr;
 }
 
+// 한 노드 삭제
 void DelNode(HeadNode* phead, DListNode* node) // 보수 필요
 {
 	int n = 2;
 
+	// 해당 노드가 없는 경우
 	if (node == NULL)
 	{
 		printf("삭제 실패 : 삭제할 노드가 없습니다.\n");
 		printf("\n");
 	}
+	// 공백리스트인 경우
 	else if (phead->head == NULL)
 	{
 		printf("삭제 실패 : 현재 헤드만 존재합니다.\n");
@@ -171,13 +191,15 @@ void DelNode(HeadNode* phead, DListNode* node) // 보수 필요
 	}
 	else
 	{
-		if (phead->head == node) // 헤더 바로 다음 노드만 존재하는 경우
+		// 첫 노드만 존재하는 경우
+		if (phead->head == node)
 		{
 			printf("삭제 실행 : 1번째 노드를 삭제합니다.\n");
 			printf("\n");
 			phead->head = node->next;
 			free(node);
 		}
+		// 노드가 두 개 이상인 경우
 		else
 		{
 			DListNode* curr = phead->head;
@@ -189,9 +211,20 @@ void DelNode(HeadNode* phead, DListNode* node) // 보수 필요
 			}
 			printf("삭제 실행 : %d번째 노드를 삭제합니다.\n", n);
 			printf("\n");
-			curr->next = node->next;
-			curr->next->prev = curr;
-			free(node);
+
+			// 삭제할 노드가 마지막인 경우
+			if (curr->next->next == NULL)
+			{
+				curr->next = NULL;
+				free(node);
+			}
+			// 삭제할 노드가 마지막이 아닌 경우
+			else
+			{
+				curr->next = node->next;
+				curr->next->prev = curr;
+				free(node);
+			}
 		}
 	}
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+// 연결 구조 스택 : 연결 구조(배열)을 이용한 스택
 
 typedef struct snode
 {
