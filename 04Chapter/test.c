@@ -1,14 +1,8 @@
 #include <stdio.h>
 
-int main()
-{
+int main() {
 	int A, B;
-	double res;
-
-	scanf("%d%d", &A, &B);
-	printf("%d\n", A + B);
-	res = (double)A / (double)B;
-	printf("%.9lf", res);
-
+	while (scanf("%d %d", &A, &B) != EOF)
+		printf("%d\n", A + B);
 	return 0;
 }

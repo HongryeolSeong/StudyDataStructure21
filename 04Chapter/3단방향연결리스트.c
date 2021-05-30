@@ -40,11 +40,11 @@ int main()
 	n5 = PreInsertNode(h, 50);
 
 	PrintNode(h);
-	sn = SearchNode(h, 30);
+	/*sn = SearchNode(h, 30);
 	DeleteNode(h, n3);
 	MidInsertNode(h, n1, 7);
 	sn = SearchNode(h, 7);
-	PrintNode(h);
+	PrintNode(h);*/
 
 	return 0;
 }
