@@ -1,6 +1,6 @@
 # StudyDataStructure21
 PKNU IoT 개발자 과정   
-DataStructure & Algorithm Stucdy Repository
+DataStructure & Algorithm Study Repository
 
 ## Chapter_2 자료구조 구현을 위한 C프로그래밍🎯
 
